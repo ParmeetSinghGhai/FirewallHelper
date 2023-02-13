@@ -1,1 +1,13 @@
-#Firewall Helper
+In windows operating system, firewall rules can be set on individual applications or executables however in order to do so, you need to use graphical user interface of the windows firewall functionality and setup and "inbound" and "outbound" rule for the application by providing its application user. This works great for individual applications however in situations where you need to create rules for a folder full of application, the firewall gui utility does not help that much. I personally had this situation come up where visual studio 2022 would act up strange and seemed to be part of the overall network activity a lot. My computer was probably accessed by few unauthorized individuals on a daily bases since I do most of work in a public library and I could'nt be reinstalling my OS everytime my computer would act up.so I came up with this application that would let me create rules for all the executables contained in folder in a matter of few seconds. 
+
+Here is how the application works: 
+1) extract all the files part of the current release.
+2) open a cmd or command prompt window where these files were extracted 
+3) use the file "FirewallHelper.exe" with the following arguments: [PATH_TO_FOLDER] [Delete|Enable|Disable|Allow|Block] [Inbound|Outbound] [file extension filters: exe, bat, cmd etc] 
+e.g: C:\Users\Parmeet Ghai\Desktop\New folder>firewallhelper "C:\Program Files (x86)\Microsoft" Block Outbound exe bat cmd
+4) the program will create a file in the same directory as the one which contains "firewallhelper.exe". this file will be named after the function [Delete|Enable|Disable|Allow|Block] used along with the name of the folder with an extension of .ps1. this is an extension that powershell scripts have.
+5) open a power shell in adminsistrator mode. navigate to the folder which contains the power shell script and run this scrupt by typing in: ./"script name.ps1" e.g: PS C:\Users\Parmeet Ghai\Desktop\New folder> ./"Block microsoft.ps1" and thats it. 
+6) firewall GUI will now show a bunch of new rules with names like: 00ccf0929e102aab1f45d19691cff548cf98d673cae3da393142ca2f4b2275c5 which is a SHA256 hash of the absolute / complete file path.Its done in such a way so as to avoid file name collision.
+
+Please note: If powershell gives out any problems while running any scripts then try using command: PS> Set-ExecutionPolicy RemoteSigned on the power shell window. This allows for scripts created on your computer to run without being blocked. You can always run this command again and set it to "No" for security measures. 
+
